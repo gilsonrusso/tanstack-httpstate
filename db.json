@@ -1,0 +1,47 @@
+{
+  "commits": [
+    {
+      "id": "d6d39d4f-7aec-426e-9a67-be4ae0335af5",
+      "clBase": 7777,
+      "status": "done",
+      "commits": [
+        "Initial commit",
+        "Added README file",
+        "Setup project structure",
+        "Implemented authentication",
+        "Fixed login bug",
+        "Refactored user service",
+        "Added new feature X",
+        "Improved performance of feature Y",
+        "Added CI/CD pipeline",
+        "Fixed security vulnerabilities",
+        "Improved logging",
+        "Refactored API endpoints",
+        "Updated UI components"
+      ]
+    },
+    {
+      "id": "2ed286ae-36d5-4261-9e2a-8153124fbb6d",
+      "clBase": 4444,
+      "status": "failed",
+      "commits": [
+        "Initial commit",
+        "Added README file",
+        "Setup project structure",
+        "Implemented authentication",
+        "Fixed login bug",
+        "Refactored user service",
+        "Added new feature X",
+        "Improved performance of feature Y",
+        "Updated dependencies",
+        "Updated UI components"
+      ]
+    },
+    {
+      "id": "1778b321-c11d-4f2c-be52-5e4547306560",
+      "clBase": 555555,
+      "status": "inprogress",
+      "commits": []
+    }
+  ]
+}
