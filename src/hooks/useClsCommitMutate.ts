@@ -1,17 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axiosInstance from '../lib/Axios'
-import type { IClsCommits } from '../shared/interfaces'
-
-const request = async (data: IClsCommits) => {
-  return await axiosInstance.post<IClsCommits>('/commits', data)
-}
+import { CommitsService } from '../services/CommitsService'
+import { QUERY_KEYS } from '../shared/consts'
 
 export function useClsCommitsMutate() {
   const queryClient = useQueryClient()
   const mutate = useMutation({
-    mutationFn: request,
+    mutationFn: CommitsService.add,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['clsCommits-data'] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CLS_COMMITS] })
     },
   })
 

@@ -1,32 +1,29 @@
 import { TextField } from '@mui/material'
-import { forwardRef, useEffect, useState } from 'react'
+import { type ComponentProps, forwardRef, useEffect, useState } from 'react'
 
-interface CustomInputProps {
+interface CustomInputProps extends ComponentProps<typeof TextField> {
   label: string
   variant: 'filled' | 'outlined' | 'standard'
-  isLoading?: boolean
-  isSuccessful?: boolean
+  reset?: boolean
 }
 
 export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
-  ({ isLoading, label, variant, isSuccessful }, ref) => {
+  ({ label, variant, reset, ...props }, ref) => {
     const [value, setValue] = useState<string>('')
 
     useEffect(() => {
-      if (isSuccessful) {
+      if (reset) {
         setValue('')
       }
-    }, [isSuccessful])
+    }, [reset])
 
     return (
       <TextField
-        disabled={isLoading}
+        {...props}
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        id="outlined-basic"
         label={label}
         variant={variant}
-        className="w-full bg-white "
         inputRef={ref}
       />
     )

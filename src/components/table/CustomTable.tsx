@@ -6,7 +6,7 @@ import {
   type GridColDef,
   type GridRenderCellParams,
 } from '@mui/x-data-grid'
-import { useState } from 'react'
+import { type ComponentProps, useState } from 'react'
 import type { IClsCommits } from '../../shared/interfaces'
 import { CustomBadge } from '../badge/CustomBadge'
 import { CustomLegend } from './CustomLegend'
@@ -75,22 +75,23 @@ const columns: GridColDef[] = [
   },
 ]
 
-type TCustomTableProps = {
-  dataGrid?: IClsCommits[]
+interface TCustomTableProps
+  extends Omit<ComponentProps<typeof DataGrid>, 'columns'> {
   isLoading?: boolean
-  pagination?: 5 | 10 | 20
+  paginationSize?: 5 | 10 | 20
+  rows?: IClsCommits[]
 }
 
 export const CustomTable = ({
-  dataGrid = [],
   isLoading,
-  pagination = 5,
+  paginationSize = 5,
+  rows,
 }: TCustomTableProps) => {
   return (
     <Box sx={{ height: 600, width: '100%' }}>
       <DataGrid
         loading={isLoading}
-        rows={dataGrid}
+        rows={rows}
         columns={columns}
         slotProps={{
           loadingOverlay: {
@@ -110,7 +111,7 @@ export const CustomTable = ({
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: pagination,
+              pageSize: paginationSize,
             },
           },
         }}
