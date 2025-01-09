@@ -1,15 +1,21 @@
-import Box from '@mui/material/Box'
 import Link from '@mui/material/Link'
 import Skeleton from '@mui/material/Skeleton'
-import {
+import type {
   DataGrid,
-  type GridColDef,
-  type GridRenderCellParams,
+  GridColDef,
+  GridRenderCellParams,
 } from '@mui/x-data-grid'
 import { type ComponentProps, useState } from 'react'
-import type { IClsCommits } from '../../shared/interfaces'
-import { CustomBadge } from '../badge/CustomBadge'
-import { CustomLegend } from './CustomLegend'
+import type { IClsCommits } from '../../../shared/interfaces'
+import { CustomBadge } from '../../badge/CustomBadge'
+import { Table } from './Table'
+
+interface TCustomTableProps
+  extends Omit<ComponentProps<typeof DataGrid>, 'columns'> {
+  isLoading?: boolean
+  paginationSize?: 5 | 10 | 20
+  rows?: IClsCommits[]
+}
 
 function ExpandableCell({ value }: GridRenderCellParams) {
   const [expanded, setExpanded] = useState<boolean>(false)
@@ -75,53 +81,43 @@ const columns: GridColDef[] = [
   },
 ]
 
-interface TCustomTableProps
-  extends Omit<ComponentProps<typeof DataGrid>, 'columns'> {
-  isLoading?: boolean
-  paginationSize?: 5 | 10 | 20
-  rows?: IClsCommits[]
-}
-
 export const CustomTable = ({
   isLoading,
   paginationSize = 5,
   rows,
 }: TCustomTableProps) => {
   return (
-    <Box sx={{ height: 600, width: '100%' }}>
-      <DataGrid
-        loading={isLoading}
-        rows={rows}
-        columns={columns}
-        slotProps={{
-          loadingOverlay: {
-            variant: 'skeleton',
-            noRowsVariant: 'skeleton',
+    <Table
+      loading={isLoading}
+      rows={rows}
+      columns={columns}
+      slotProps={{
+        loadingOverlay: {
+          variant: 'skeleton',
+          noRowsVariant: 'skeleton',
+        },
+      }}
+      sx={{
+        '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' },
+        '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
+          py: '15px',
+        },
+        '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
+          py: '22px',
+        },
+      }}
+      initialState={{
+        pagination: {
+          paginationModel: {
+            pageSize: paginationSize,
           },
-        }}
-        sx={{
-          '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' },
-          '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
-            py: '15px',
-          },
-          '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
-            py: '22px',
-          },
-        }}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: paginationSize,
-            },
-          },
-        }}
-        getRowHeight={() => 'auto'}
-        getEstimatedRowHeight={() => 100}
-        pageSizeOptions={[5, 10, 20, { value: -1, label: 'All' }]}
-        // checkboxSelection
-        disableRowSelectionOnClick
-      />
-      <CustomLegend />
-    </Box>
+        },
+      }}
+      getRowHeight={() => 'auto'}
+      getEstimatedRowHeight={() => 100}
+      pageSizeOptions={[5, 10, 20, { value: -1, label: 'All' }]}
+      // checkboxSelection
+      disableRowSelectionOnClick
+    />
   )
 }

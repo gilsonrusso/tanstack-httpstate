@@ -7,7 +7,7 @@ const statusLabels: { status: TStatus; label: string }[] = [
   { status: 'failed', label: 'Failed' },
 ]
 
-export const CustomLegend = () => {
+export const TableLegend = () => {
   return (
     <div className="flex gap-2 mt-[-35px] ml-[15px]">
       {statusLabels.map(({ status, label }) => (

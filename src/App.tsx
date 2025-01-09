@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid'
 import './App.css'
 import { CustomButton } from './components/button/CustomButton'
 import { CustomInput } from './components/input/CustomInput'
-import { CustomTable } from './components/table/CustomTable'
+import { TableWrapper } from './components/table'
+import { TableComponents } from './components/table/Tables'
 import { useClsCommitsMutate } from './hooks/useClsCommitMutate'
 import { useClsCommitsQuery } from './hooks/useClsCommitQuery'
 import type { IClsCommits } from './shared/interfaces'
@@ -39,8 +40,7 @@ function App() {
   }
 
   return (
-    <>
-      <h1 className="text-xl mb-3">Tanstack / React Query / HTTP State</h1>
+    <div id="app">
       <div className="flex gap-2 mb-3">
         <CustomInput
           className="w-full bg-white"
@@ -57,8 +57,15 @@ function App() {
           onClick={handleSubmit}
         />
       </div>
-      <CustomTable paginationSize={5} rows={data} isLoading={isLoading} />
-    </>
+      <TableWrapper.Root>
+        <TableComponents.CustomTable
+          paginationSize={5}
+          rows={data}
+          isLoading={isLoading}
+        />
+        <TableWrapper.Legend />
+      </TableWrapper.Root>
+    </div>
   )
 }
 
