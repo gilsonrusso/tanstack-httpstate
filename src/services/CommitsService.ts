@@ -15,4 +15,10 @@ export const CommitsService: ICommitsService<IClsCommits> = {
       ...(response as HttpResponse<IClsCommits>),
     }
   },
+  getById: async (id: string) => {
+    const response = await axiosInstance.get<IClsCommits>(`/commits/${id}`)
+    return {
+      ...(response as HttpResponse<IClsCommits>),
+    }
+  },
 }
